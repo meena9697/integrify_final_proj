@@ -1,11 +1,14 @@
 import errorHandler from 'errorhandler'
-import mongoose from 'mongoose'
+import mongoose, { mongo } from 'mongoose'
 
 import app from './app'
 import { MONGODB_URI } from './util/secrets'
 import logger from './util/logger'
 
 const mongoUrl = MONGODB_URI
+console.log('This is mongo', mongoUrl)
+console.log('check', process.env['MONGODB_URI'])
+const uri = process.env['MONGODB_URI']
 
 mongoose
   .connect(mongoUrl, {
