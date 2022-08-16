@@ -6,6 +6,7 @@ import {
   deleteProduct,
   findAll,
   findByProduct,
+  getSeedProduct,
 } from '../controllers/makeupController'
 
 const productRoute = express.Router()
@@ -16,5 +17,6 @@ productRoute.get('/:product_type', findByProduct)
 productRoute.put('/:product_type', updateProduct)
 productRoute.delete('/:product_type', deleteProduct)
 productRoute.post('/', createProduct)
+productRoute.get('/seedproduct', getSeedProduct)
 
 export default productRoute

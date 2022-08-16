@@ -1,13 +1,16 @@
 /* eslint-disable @typescript-eslint/member-delimiter-style */
 import mongoose from 'mongoose'
 
+export type productColorType ={
+hex_value: string
+colour_name: string
+}
+
 export type MakeupDoc = {
-  id: string
   brand: number
   name: string
-  product_colors: string[]
+  product_colors: productColorType[]
   price: string
-  rating: number
   image_link: string
   description: string
   product_type: string
@@ -22,11 +25,7 @@ const productSchema = new mongoose.Schema({
   },
 })
 
-const makeupSchema = new mongoose.Schema({
-  id: {
-    type: Number,
-    index: true,
-  },
+export const makeupSchema = new mongoose.Schema({
   brand: {
     type: String,
     required: true,
