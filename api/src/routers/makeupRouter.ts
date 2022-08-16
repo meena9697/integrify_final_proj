@@ -1,20 +1,20 @@
 import express from 'express'
 
 import {
-  createMakeup,
-  // findById,
-  // deleteMovie,
-  // findAll,
-  // updateMovie,
+  createProduct,
+  updateProduct,
+  deleteProduct,
+  findAll,
+  findByProduct,
 } from '../controllers/makeupController'
 
-const router = express.Router()
+const productRoute = express.Router()
 
 // Every path we define here will get /api/v1/movies prefix
-// router.get('/', findAll)
-// router.get('/:movieId', findById)
-// router.put('/:movieId', updateMovie)
-// router.delete('/:movieId', deleteMovie)
-router.post('/', createMakeup)
+productRoute.get('/', findAll)
+productRoute.get('/:product_type', findByProduct)
+productRoute.put('/:product_type', updateProduct)
+productRoute.delete('/:product_type', deleteProduct)
+productRoute.post('/', createProduct)
 
-export default router
+export default productRoute

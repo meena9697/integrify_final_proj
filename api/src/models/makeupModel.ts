@@ -53,6 +53,6 @@ const makeupSchema = new mongoose.Schema({
   product_colors: [productSchema],
 })
 
-const makeupModel = mongoose.model('makeup', makeupSchema)
+const makeupModel = mongoose.model('products', makeupSchema)
 
 export default makeupModel
