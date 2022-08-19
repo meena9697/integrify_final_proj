@@ -11,7 +11,7 @@ export const getSeedProduct = async (
   req: Request,
   res: Response,
   next: NextFunction
-)=>{
+) => {
   try {
     console.log("checking")
     dataform.forEach(async (product) => {
@@ -29,8 +29,7 @@ export const getSeedProduct = async (
           }
         }),
       })
-      await MakeupService.createProd(seedProduct)
-      res.json()
+      res.json(await MakeupService.createProd(seedProduct))
     })
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {

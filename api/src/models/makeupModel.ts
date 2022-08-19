@@ -42,12 +42,12 @@ export const makeupSchema = new mongoose.Schema({
   },
   description: {
     type: String,
-    required: true,
+    required: false,
     min: 100,
   },
   product_type: {
     type: String,
-    required: true,
+    required: false,
   },
   product_colors: [productSchema],
 })
