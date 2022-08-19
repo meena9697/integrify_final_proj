@@ -1,4 +1,4 @@
-import makeupModel, { MakeupDoc, makeupSchema } from '../models/makeupModel'
+import makeupModel, { MakeupDoc } from '../models/makeupModel'
 import { NotFoundError } from '../helpers/apiError'
 
 const createProd = async (makeup: MakeupDoc) => {

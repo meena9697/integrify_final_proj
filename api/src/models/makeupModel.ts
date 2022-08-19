@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/member-delimiter-style */
-import mongoose from 'mongoose'
+import mongoose, { Document } from 'mongoose'
 
-export type productColorType ={
+export type productColorType = {
 hex_value: string
 colour_name: string
 }
 
-export type MakeupDoc = {
+export type MakeupDoc = Document & {
   brand: number
   name: string
   product_colors: productColorType[]
@@ -52,6 +52,6 @@ export const makeupSchema = new mongoose.Schema({
   product_colors: [productSchema],
 })
 
-const makeupModel = mongoose.model('products', makeupSchema)
+const makeupModel = mongoose.model<MakeupDoc>('products', makeupSchema)
 
 export default makeupModel

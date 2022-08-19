@@ -13,12 +13,14 @@ export const getSeedProduct = async (
   next: NextFunction
 )=>{
   try {
+    console.log("checking")
     dataform.forEach(async (product) => {
       const seedProduct = new products({
         brand: product.brand,
         name: product.name,
-        price: String(product.price),
-        imageLink: product.image_link,
+        price: Number(product.price),
+        image_link: product.image_link,
+        product_type: product.product_type,
         description: product.description,
         variant: product.product_colors.map((item: productColorType) => {
           return {
@@ -28,6 +30,7 @@ export const getSeedProduct = async (
         }),
       })
       await MakeupService.createProd(seedProduct)
+      res.json()
     })
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {

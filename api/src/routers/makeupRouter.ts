@@ -12,11 +12,11 @@ import {
 const productRoute = express.Router()
 
 // Every path we define here will get /api/v1/movies prefix
-productRoute.get('/', findAll)
+// productRoute.get('/', findAll)
 productRoute.get('/:product_type', findByProduct)
 productRoute.put('/:product_type', updateProduct)
 productRoute.delete('/:product_type', deleteProduct)
 productRoute.post('/', createProduct)
-productRoute.get('/seedproduct', getSeedProduct)
+productRoute.get('/seedProduct', getSeedProduct)
 
 export default productRoute

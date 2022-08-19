@@ -40,24 +40,6 @@ const userSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  address: {
-    city: {
-      type: String,
-      required: false,
-    },
-    street: {
-      type: String,
-      required: false,
-    },
-    number: {
-      type: Number,
-      required: false,
-    },
-    zipcode: {
-      type: String,
-      required: false,
-    },
-  },
   phone: {
     type: String,
     required: true,
