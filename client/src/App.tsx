@@ -1,15 +1,19 @@
 import React from 'react';
 import GoogleLogInComponent from './GoogleLogInComponent';
-// import logo from './logo.svg';
-// import './App.css';
+import HomePage from './Pages/HomePage';
+import { Route, Routes } from "react-router-dom";
+import ProductsPage from './Pages/ProductsPage';
 
 function App() {
   return (
     <div className="App">
-<h1>GoogleLogIn</h1>
-<GoogleLogInComponent/>    
+    <Routes>
+    <Route path="/" element={<HomePage />} /> 
+    <Route path="/products" element={<ProductsPage />} />
+     </Routes>
 </div>
   );
 }
 
 export default App;
+
