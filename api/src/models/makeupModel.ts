@@ -2,8 +2,8 @@
 import mongoose, { Document } from 'mongoose'
 
 export type productColorType = {
-hex_value: string
-colour_name: string
+  hex_value: string
+  colour_name: string
 }
 
 export type MakeupDoc = Document & {
@@ -14,6 +14,7 @@ export type MakeupDoc = Document & {
   image_link: string
   description: string
   product_type: string
+  price_sign: string
 }
 
 const productSchema = new mongoose.Schema({
@@ -36,6 +37,9 @@ export const makeupSchema = new mongoose.Schema({
   price: {
     type: String,
     required: true,
+  },
+  price_sign: {
+    type: String,
   },
   image_link: {
     type: String,

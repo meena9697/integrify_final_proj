@@ -13,7 +13,6 @@ export const getSeedProduct = async (
   next: NextFunction
 ) => {
   try {
-    console.log("checking")
     dataform.forEach(async (product) => {
       const seedProduct = new products({
         brand: product.brand,
@@ -22,12 +21,13 @@ export const getSeedProduct = async (
         image_link: product.image_link,
         product_type: product.product_type,
         description: product.description,
-        variant: product.product_colors.map((item: productColorType) => {
-          return {
-            hexValue: item.hex_value,
-            colourName: item.colour_name,
-          }
-        }),
+        price_sign: product.price_sign,
+      //   variant: product.product_colors.map((item: productColorType) => {
+      //     return {
+      //       hexValue: item.hex_value,
+      //       colourName: item.colour_name,
+      //     }
+      //   }),
       })
       res.json(await MakeupService.createProd(seedProduct))
     })
@@ -128,4 +128,3 @@ export const findAll = async (
     }
   }
 }
-

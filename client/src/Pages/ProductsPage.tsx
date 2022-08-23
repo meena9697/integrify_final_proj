@@ -1,25 +1,27 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import { AppState, Products } from "../redux/types"
 import { fetchProducts } from "../redux/action/productsAction";
+
 import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
-import productsReducer from "../redux/reducer/productsReducer";
+import Box from "@mui/material/Box";
+import CardHeader from "@mui/material/CardHeader";
+import CardActions from "@mui/material/CardActions";
 
 
 export default function ProductsPage () {
     const dispatch = useDispatch<any>();
-    // const productsData = useSelector(
-    //   (appState: AppState) => appState.productsData.productsdata
-    // );
-    // console.log("this is data", productsData)
-
+    const productsNameData = useSelector(
+      (appState: AppState) => appState.productsData
+    );
     const loading = useSelector(
       (appState: AppState) => appState.productsData.loading
     );
+    console.log(loading, "page loading")
     const error = useSelector(
       (appState: AppState) => appState.productsData.error
     );
@@ -35,30 +37,48 @@ export default function ProductsPage () {
           <h1>Loading..</h1>
         </div>
       );
-    return (
-      <Card sx={{ maxWidth: 345 }}>
-              {/* {productsData && productsData.map((products: Products) => {
-    return (
-    <CardActionArea>
-          <CardMedia
-          component="img"
-          height="140"
-          image={products.image_link}
-          alt= ""
-          />
-          <CardContent>
-          <Typography gutterBottom variant="h5" component="div">
-              {products.brand}
-          </Typography>
-          <Typography variant="body2" color="text.secondary">
-              {products.name}
-          </Typography>
-          </CardContent>
-      </CardActionArea>
-      )
-  })} */}
-  </Card>
-
+return (
+  <React.Fragment>
+    <Box
+      sx={{
+        display: "flex",
+        flexWrap: "wrap",
+        flexDirection: "row",
+        justifyContent: "space-evenly",
+        width: "1500px",
+        padding: "1rem",
+      }}
+    >
+{productsNameData && productsNameData.map((products: Products) => {
+        return (
+          <Card
+            sx={{
+              width: 400,
+              maxheight: 500,
+              margin: "1rem",
+              textAlign: "center",
+            }}
+          >
+            <CardHeader title={products.brand} />
+            <CardMedia>
+              <img src={products.image_link} />
+            </CardMedia>
+            <Typography sx={{ fontSize: 20, color: "black" }}>
+               <b>{products.name}</b>
+            </Typography>
+            <Typography sx={{ fontSize: 20, color: "black" }}>
+               {products.product_type}
+            </Typography>
+            <Typography sx={{ fontSize: 20, color: "black" }}>
+            {products.price} {products.price_sign}         </Typography>
+          </Card>
+        ); 
+      })} 
+    </Box>
+    <CardActions sx={{ justifyContent: "center" }}>
+    </CardActions>
+  </React.Fragment>
 );
+
 }
   

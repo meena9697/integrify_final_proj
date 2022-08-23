@@ -10,6 +10,7 @@ export const fetchProducts = () => {
       const response: Products[] = await fetch("http://localhost:8000/api/v1/makeupProduct/seedProduct").then(
         (response) => response.json()
       );
+      console.log(response, "this is the res")
     dispatch(fetchProductsSuccess(response))
     } catch (error) {
       dispatch(fetchProductsFailure(error));

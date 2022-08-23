@@ -1,11 +1,8 @@
 import mongoose from 'mongoose'
 
 export type UserDoc = {
-  name: {
     firstname: string
     lastname: string
-  }
-  username: string
   email: string
   password: string
   address: {
@@ -15,10 +12,9 @@ export type UserDoc = {
     zipcode: string
   }
   phone: number
-  iasAdmin: boolean
+  isAdmin: boolean
 }
 const userSchema = new mongoose.Schema({
-  name: {
     firstname: {
       type: String,
       required: true,
@@ -27,11 +23,6 @@ const userSchema = new mongoose.Schema({
       type: String,
       required: true,
     },
-  },
-  username: {
-    type: String,
-    required: true,
-  },
   email: {
     type: String,
     required: true,

@@ -6,10 +6,11 @@ export type AppState = {
   };
 }
   export type Products= {
-    brand: number
+    brand: string
     name: string
     price: string
     image_link: string
     description: string
     product_type: string
+    price_sign: string
   }
