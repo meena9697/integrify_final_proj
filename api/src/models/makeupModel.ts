@@ -29,14 +29,14 @@ const productSchema = new mongoose.Schema({
 export const makeupSchema = new mongoose.Schema({
   brand: {
     type: String,
-    required: true,
+    required: false,
   },
   name: {
     type: String,
   },
   price: {
     type: String,
-    required: true,
+    required: false,
   },
   price_sign: {
     type: String,

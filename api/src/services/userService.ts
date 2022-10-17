@@ -5,11 +5,37 @@ const createUser = async (user: UserDoc) => {
   return await newData.save()
 }
 
-const findAllUsers = async (): Promise<UserDoc[]> => {
-  return userModel.find()
+const getAllUsers = async (): Promise<UserDoc[]> => {
+  return userModel.find().sort({ firstname: 1 })
+}
+const findOrCreate = async (payload: Partial<UserDoc>) => {
+  try {
+    const foundUser = await userModel.findOne({ email: payload.email })
+    if (foundUser) {
+      return foundUser
+    } else {
+      const newUser = {
+        email: payload.email,
+        firstname: payload.firstname,
+        lastname: payload.lastname,
+        loginWith: 'google',
+      }
+      const newCreatedUser = await userModel.create(newUser)
+      await newCreatedUser.save()
+      return newCreatedUser
+    }
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+const findUserByEmail = async (email: string) => {
+  return userModel.findOne({ email: email })
 }
 
 export default {
   createUser,
-  findAllUsers,
+  getAllUsers,
+  findOrCreate,
+  findUserByEmail,
 }

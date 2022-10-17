@@ -31,6 +31,8 @@
     "mongodb-memory-server": "^6.3.1",
     "mongoose": "^5.11.15",
     "passport": "^0.4.1",
+    "passport-google-id-token": "^0.4.7",
+    "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
     "winston": "^3.2.1"
   },
@@ -44,6 +46,8 @@
     "@types/node-sass": "^4.11.0",
     "@types/nodemailer": "^6.4.0",
     "@types/passport": "^1.0.2",
+    "@types/passport-google-id-token": "^0.4.0",
+    "@types/passport-jwt": "^3.0.7",
     "@types/passport-local": "^1.0.33",
     "@types/supertest": "^2.0.8",
     "@types/winston": "^2.4.4",

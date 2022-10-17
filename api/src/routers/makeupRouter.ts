@@ -4,7 +4,7 @@ import {
   createProduct,
   updateProduct,
   deleteProduct,
-findAll,
+  findAll,
   findByProduct,
   getSeedProduct,
 } from '../controllers/makeupController'

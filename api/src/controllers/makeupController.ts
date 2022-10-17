@@ -2,7 +2,7 @@ import { Request, Response, NextFunction } from 'express'
 
 import MakeupService from '../services/makeupService'
 import { BadRequestError } from '../helpers/apiError'
-import dataform from '../../data.json'
+import dataform from '../../fulldata.json'
 import products from '../models/makeupModel'
 import { productColorType } from '../models/makeupModel'
 
@@ -22,12 +22,12 @@ export const getSeedProduct = async (
         product_type: product.product_type,
         description: product.description,
         price_sign: product.price_sign,
-      //   variant: product.product_colors.map((item: productColorType) => {
-      //     return {
-      //       hexValue: item.hex_value,
-      //       colourName: item.colour_name,
-      //     }
-      //   }),
+        //   variant: product.product_colors.map((item: productColorType) => {
+        //     return {
+        //       hexValue: item.hex_value,
+        //       colourName: item.colour_name,
+        //     }
+        //   }),
       })
       res.json(await MakeupService.createProd(seedProduct))
     })
@@ -102,7 +102,7 @@ export const findByProduct = async (
   next: NextFunction
 ) => {
   try {
-    res.json(await MakeupService.findByProduct(req.params.product_type))
+    res.json(await MakeupService.findByProductName(req.params.product_type))
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', error))

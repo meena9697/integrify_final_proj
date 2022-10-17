@@ -1,11 +1,21 @@
 import express from 'express'
-
-import { createUser, findAllUsers } from '../controllers/userController'
+import passport from 'passport'
+import { createUser, getAllUsers, googleAuthenticate } from '../controllers/userController'
 
 const userRoute = express.Router()
 
 // Every path we define here will get /api/v1/users prefix
-userRoute.get('/', findAllUsers)
 userRoute.post('/', createUser)
-
-export default userRoute
+userRoute.post(
+    '/google-authenticate',
+    passport.authenticate('google-id-token', { session: false }),
+    googleAuthenticate
+  )
+  userRoute.get(
+    '/',
+    passport.authenticate('jwt', { session: false }),
+    // adminCheck,
+    getAllUsers
+  )
+  
+  export default userRoute

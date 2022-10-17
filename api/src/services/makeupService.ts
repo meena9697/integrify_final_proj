@@ -6,11 +6,11 @@ const createProd = async (makeup: MakeupDoc) => {
   return await newData.save()
 }
 
-const findByProduct = async (product_type: string): Promise<MakeupDoc> => {
-  const foundProduct = await makeupModel.findOne({product_type})
+const findByProductName = async (name: string): Promise<MakeupDoc> => {
+  const foundProduct = await makeupModel.findOne({ name })
 
   if (!foundProduct) {
-    throw new NotFoundError(`Product ${product_type} not found`)
+    throw new NotFoundError(`Product ${name} not found`)
   }
 
   return foundProduct
@@ -24,9 +24,13 @@ const update = async (
   product_type: string,
   update: Partial<MakeupDoc>
 ): Promise<MakeupDoc | null> => {
-  const foundProduct = await makeupModel.findOneAndUpdate({product_type}, update, {
-    new: true,
-  })
+  const foundProduct = await makeupModel.findOneAndUpdate(
+    { product_type },
+    update,
+    {
+      new: true,
+    }
+  )
 
   if (!foundProduct) {
     throw new NotFoundError(`Product ${product_type} not found`)
@@ -35,8 +39,10 @@ const update = async (
   return foundProduct
 }
 
-const deleteProduct = async (product_type: string): Promise<MakeupDoc | null> => {
-  const foundMovie = makeupModel.findOneAndDelete({product_type})
+const deleteProduct = async (
+  product_type: string
+): Promise<MakeupDoc | null> => {
+  const foundMovie = makeupModel.findOneAndDelete({ product_type })
 
   if (!foundMovie) {
     throw new NotFoundError(`Product ${product_type} not found`)
@@ -47,7 +53,7 @@ const deleteProduct = async (product_type: string): Promise<MakeupDoc | null> =>
 
 export default {
   createProd,
-  findByProduct,
+  findByProductName,
   findAll,
   update,
   deleteProduct,

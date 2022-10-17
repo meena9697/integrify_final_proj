@@ -1,8 +1,8 @@
 import mongoose from 'mongoose'
 
 export type UserDoc = {
-    firstname: string
-    lastname: string
+  firstname: string
+  lastname: string
   email: string
   password: string
   address: {
@@ -13,32 +13,39 @@ export type UserDoc = {
   }
   phone: number
   isAdmin: boolean
+  loginWith: string
+
 }
 const userSchema = new mongoose.Schema({
-    firstname: {
-      type: String,
-      required: true,
-    },
-    lastname: {
-      type: String,
-      required: true,
-    },
+  firstname: {
+    type: String,
+    required: true,
+  },
+  lastname: {
+    type: String,
+    required: true,
+  },
   email: {
     type: String,
     required: true,
   },
   password: {
     type: String,
-    required: true,
+    required: false,
   },
   phone: {
     type: String,
-    required: true,
+    required: false,
   },
   isAdmin: {
     type: Boolean,
     default: false,
   },
+  loginWith: {
+    type: String,
+    default: false,
+  },
+
 })
 
 const userModel = mongoose.model('users', userSchema)

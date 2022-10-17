@@ -9,11 +9,36 @@ import Card from '@mui/material/Card';
 import CardMedia from '@mui/material/CardMedia';
 import Typography from '@mui/material/Typography';
 import Box from "@mui/material/Box";
-import CardHeader from "@mui/material/CardHeader";
 import CardActions from "@mui/material/CardActions";
+import TablePagination from "@mui/material/TablePagination";
 
+const styles = {
+    media: {
+    height: 150,
+    width: 300,
+    paddingTop: "5.25%" // 16:9
+  }
+};
 
 export default function ProductsPage () {
+  const [page, setPage] = React.useState(1);
+  const [rowsPerPage, setRowsPerPage] = React.useState(25);
+  
+
+  const handleChangePage = (
+    event: React.MouseEvent<HTMLButtonElement> | null,
+    newPage: number,
+  ) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
+    setRowsPerPage(parseInt(event.target.value, 25));
+    setPage(1);
+  };
+
     const dispatch = useDispatch<any>();
     const productsNameData = useSelector(
       (appState: AppState) => appState.productsData
@@ -46,38 +71,48 @@ return (
         flexDirection: "row",
         justifyContent: "space-evenly",
         width: "1500px",
-        padding: "1rem",
+        padding: "0.5rem",
       }}
     >
-{productsNameData && productsNameData.map((products: Products) => {
+{productsNameData && productsNameData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+.map((products: Products) => {
         return (
           <Card
             sx={{
-              width: 400,
+              maxwidth: 300,
               maxheight: 500,
               margin: "1rem",
               textAlign: "center",
             }}
           >
-            <CardHeader title={products.brand} />
+            <Typography sx={{ fontSize: 20}}> <b>{products.brand}</b> </Typography>
             <CardMedia>
-              <img src={products.image_link} />
+              <img src={products.image_link} style ={styles.media} />
             </CardMedia>
-            <Typography sx={{ fontSize: 20, color: "black" }}>
+            <Typography sx={{ fontSize: 15, color: "black" }}>
                <b>{products.name}</b>
             </Typography>
-            <Typography sx={{ fontSize: 20, color: "black" }}>
+            <Typography sx={{ fontSize: 15, color: "black" }}>
                {products.product_type}
             </Typography>
-            <Typography sx={{ fontSize: 20, color: "black" }}>
-            {products.price} {products.price_sign}         </Typography>
+            <Typography sx={{ fontSize: 15, color: "black" }}>
+            {products.price} {products.price_sign}  </Typography>
           </Card>
         ); 
       })} 
     </Box>
     <CardActions sx={{ justifyContent: "center" }}>
     </CardActions>
-  </React.Fragment>
+    <TablePagination
+      component="div"
+      count={1000}
+      page={page}
+      onPageChange={handleChangePage}
+      rowsPerPage={rowsPerPage}
+      onRowsPerPageChange={handleChangeRowsPerPage}
+    />
+</React.Fragment>
+
 );
 
 }
