@@ -1,6 +1,6 @@
-import mongoose from 'mongoose'
+import mongoose, { Document } from 'mongoose'
 
-export type UserDoc = {
+export type UserDoc = Document & {
   firstname: string
   lastname: string
   email: string
@@ -14,7 +14,6 @@ export type UserDoc = {
   phone: number
   isAdmin: boolean
   loginWith: string
-
 }
 const userSchema = new mongoose.Schema({
   firstname: {
@@ -45,9 +44,8 @@ const userSchema = new mongoose.Schema({
     type: String,
     default: false,
   },
-
 })
 
-const userModel = mongoose.model('users', userSchema)
+const userModel = mongoose.model<UserDoc>('users', userSchema)
 
 export default userModel

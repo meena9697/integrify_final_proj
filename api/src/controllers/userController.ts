@@ -1,8 +1,9 @@
 import jwt from 'jsonwebtoken'
 import { Request, Response, NextFunction } from 'express'
+import bcrypt from 'bcrypt'
 
 import userModel, { UserDoc } from '../models/userModel'
-import UserService from '../services/userService'
+import userService from '../services/userService'
 import { JWT_SECRET } from '../util/secrets'
 import { BadRequestError } from '../helpers/apiError'
 
@@ -13,7 +14,7 @@ export const createUser = async (
   next: NextFunction
 ) => {
   try {
-    await UserService.createUser(req.body)
+    await userService.createUser(req.body)
     res.json()
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
@@ -30,7 +31,7 @@ export const getAllUsers = async (
   next: NextFunction
 ) => {
   try {
-    res.json(await UserService.getAllUsers())
+    res.json(await userService.getAllUsers())
   } catch (error) {
     if (error instanceof Error && error.name == 'ValidationError') {
       next(new BadRequestError('Invalid Request', error))
@@ -47,13 +48,13 @@ export const googleAuthenticate = async (
 ) => {
   try {
     const userGoogleData = req.user as UserDoc
-    console.log(userGoogleData, "user data")
+    console.log(userGoogleData, 'user data')
     const { email, firstname, lastname } = userGoogleData
     const token = jwt.sign(
       {
         email,
         firstname,
-        lastname
+        lastname,
       },
       JWT_SECRET,
       {
@@ -70,3 +71,26 @@ export const googleAuthenticate = async (
   }
 }
 
+export const findOrCreateViaRegister = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    const hash = await bcrypt.hash(req.body.password, 8)
+    const { firstname, lastname, email } = req.body
+    const user = new userModel({
+      firstname,
+      lastname,
+      email,
+      password: hash,
+    })
+    res.json(await userService.findOrCreateViaRegister(user))
+  } catch (error) {
+    if (error instanceof Error && error.name == 'ValidationError') {
+      next(new BadRequestError('Invalid Request', error))
+    } else {
+      next(error)
+    }
+  }
+}
