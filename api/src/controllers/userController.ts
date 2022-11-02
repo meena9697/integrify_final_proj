@@ -94,3 +94,19 @@ export const findOrCreateViaRegister = async (
     }
   }
 }
+
+export const findUserByEmail = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
+  try {
+    res.json(await userService.findUserByEmail(req.body))
+  } catch (error) {
+    if (error instanceof Error && error.name == 'ValidationError') {
+      next(new BadRequestError('Invalid Request', error))
+    } else {
+      next(error)
+    }
+  }
+}

@@ -6,11 +6,11 @@ const createProd = async (makeup: MakeupDoc) => {
   return await newData.save()
 }
 
-const findByProductName = async (name: string): Promise<MakeupDoc> => {
-  const foundProduct = await makeupModel.findOne({ name })
+const findByProductName = async (product_type: string): Promise<MakeupDoc> => {
+  const foundProduct = await makeupModel.findOne({ brand: product_type })
 
   if (!foundProduct) {
-    throw new NotFoundError(`Product ${name} not found`)
+    throw new NotFoundError(`Product ${product_type} not found`)
   }
 
   return foundProduct

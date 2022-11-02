@@ -1,5 +1,6 @@
 import { legacy_createStore as createStore, applyMiddleware, compose } from "redux";
 import thunk from "redux-thunk"
+import allReducer from "./reducer/index";
 import productsReducer from "./reducer/productsReducer";
 
 const middlewares = [thunk]
@@ -11,8 +12,8 @@ if(process.env.NODE_ENV === 'development'){
   }
 }
 
-const store = createStore(
-  productsReducer, 
+const store = createStore( 
+  allReducer,
   composeEnhancers(applyMiddleware(...middlewares)
   ));
 export default store;

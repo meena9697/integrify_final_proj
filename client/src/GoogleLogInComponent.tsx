@@ -1,10 +1,7 @@
-import React from "react";
 import { GoogleLogin } from "@react-oauth/google";
 import axios from "axios";
-import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom'
 
-import { fetchProducts } from "./redux/action/productsAction"
 
 export default function GoogleLogInComponent() {
   const navigate = useNavigate()

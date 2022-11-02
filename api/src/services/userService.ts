@@ -1,7 +1,9 @@
 import jwt from 'jsonwebtoken'
+import bcrypt from 'bcrypt'
 
 import userModel, { UserDoc } from '../models/userModel'
 import { JWT_SECRET } from '../util/secrets'
+import { BadRequestError } from '../helpers/apiError'
 
 const createUser = async (user: UserDoc) => {
   const newData = await userModel.create(user)
@@ -49,8 +51,30 @@ const findOrCreateViaRegister = async (user: UserDoc) => {
   }
 }
 
-const findUserByEmail = async (email: string) => {
-  return userModel.findOne({ email: email })
+const findUserByEmail = async (
+  user: UserDoc
+): Promise<{
+  foundUser: UserDoc
+  token: string
+}> => {
+  const foundUser = await userModel.findOne({ email: user.email })
+  if (foundUser) {
+    const matchpassword = await bcrypt.compare(
+      user.password,
+      foundUser.password
+    )
+    if (matchpassword === true) {
+      const token = jwt.sign(
+        { email: foundUser.email, id: foundUser._id },
+        JWT_SECRET
+      )
+      return { foundUser, token }
+    } else {
+      throw new BadRequestError('password is incorrect')
+    }
+  } else {
+    throw new BadRequestError(`user ${user.email} not found`)
+  }
 }
 
 export default {

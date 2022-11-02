@@ -8,8 +8,8 @@ type InitialState = {
 };
 
 const initialState: InitialState = {
-  loading: false,
   productsData: [],
+  loading: false,
   error: "",
 };
 

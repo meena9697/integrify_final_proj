@@ -5,6 +5,7 @@ import {
   getAllUsers,
   googleAuthenticate,
   findOrCreateViaRegister,
+  findUserByEmail
 } from '../controllers/userController'
 
 const userRoute = express.Router()
@@ -23,5 +24,6 @@ userRoute.get(
   getAllUsers
 )
 userRoute.post('/register', findOrCreateViaRegister)
+userRoute.post('/login', findUserByEmail)
 
 export default userRoute

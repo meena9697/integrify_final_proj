@@ -7,7 +7,7 @@ export type productColorType = {
 }
 
 export type MakeupDoc = Document & {
-  brand: number
+  brand: string
   name: string
   product_colors: productColorType[]
   price: string

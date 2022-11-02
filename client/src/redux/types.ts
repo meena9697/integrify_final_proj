@@ -4,6 +4,12 @@ export type AppState = {
     error: null | string;
     loading: boolean;
   };
+  productData: {
+    productData: Products[];
+    error: null | string;
+    loading: boolean;
+  };
+
 }
   export type Products= {
     brand: string

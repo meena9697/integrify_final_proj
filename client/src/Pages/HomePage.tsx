@@ -1,8 +1,8 @@
+import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import Form from 'react-bootstrap/Form'
 import { useNavigate } from 'react-router-dom'
-import { toast } from 'react-hot-toast'
-import axios from 'axios'
+import { toast } from "react-toastify";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import { Button, Typography } from "@mui/material";
@@ -31,7 +31,7 @@ export default function HomePage() {
         navigate('/products')
       })
       .catch((error) => {
-        console.log(error.response.data)
+        console.log(error.response.data, "SignIn error")
         if (error.response.data.message === `user ${payload.email} not found`) {
           toast.error('Couldnt find any account for this email. Please Register')
         } else if (error.response.data.message === 'password is incorrect') {
